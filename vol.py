@@ -32,15 +32,9 @@ temperature = np.array(list(temperature_dict.values()))
 
 # Flatten the temperature array
 temperature = temperature.flatten()
-
-energies=calc.energy[:].to_dict("ETOTAL")
-
-# Convert the dictionary values to a numpy array
-energies = np.array(list(energies.values()))
-
-# Flatten the energy array
-energies = energies.flatten()
-
+#necessary because NBLOCK might be different from 1 
+#the new atomic positions are printed in XDATCAR only every NBLOCK steps
+temperature = temperature[:len(volumes)]
 
 # Create a new subplot sharing the same x-axis
 fig, ax1 = plt.subplots(figsize=(10, 6))
@@ -97,7 +91,7 @@ print(calc.structure[closest_index-1])
 structure_data = str(calc.structure[closest_index-1])
 
 # Open the file in write mode
-with open('output.txt', 'w') as f:
+with open('POSCAR_avg_volume', 'w') as f:
     # Write the structure data to the file
     f.write(structure_data)
 
