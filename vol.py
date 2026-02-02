@@ -32,9 +32,12 @@ temperature = np.array(list(temperature_dict.values()))
 
 # Flatten the temperature array
 temperature = temperature.flatten()
-#necessary because NBLOCK might be different from 1 
-#the new atomic positions are printed in XDATCAR only every NBLOCK steps
-temperature = temperature[:len(volumes)]
+
+################# W A R N I N G #########################
+#If NBLOCK is different from 1 
+#(the new atomic positions and cell data are printed in XDATCAR only every NBLOCK steps)
+#temperature = temperature[::NBLOCK]
+##########################################################
 
 # Create a new subplot sharing the same x-axis
 fig, ax1 = plt.subplots(figsize=(10, 6))
